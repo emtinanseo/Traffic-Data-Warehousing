@@ -1,0 +1,4 @@
+[core]
+    remote = dvc-remote
+['remote "dvc-remote"']
+    url = /home/emtinanseo/Projects/10academy-week5/dvc-remote
