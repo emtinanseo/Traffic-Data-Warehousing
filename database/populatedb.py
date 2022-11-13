@@ -46,7 +46,8 @@ class Database:
         return result
 
 #------------------------------
-def csv_to_sql(data_file:str):
+data_file = dir + "/data/20181024_d1_0830_0900.csv" 
+def csv_to_sql(data_file:str = data_file):
     reader = Reader()
     db = Database()
 
