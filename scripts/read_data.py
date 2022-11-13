@@ -1,4 +1,8 @@
 import pandas as pd
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
 
 class Reader:
 
@@ -67,6 +71,7 @@ class Reader:
 
         cols_veh = columns[:n_veh]
         cols_traj = columns[:1] + columns[n_veh:]
+        # add dtypes
 
         df_vehicles = pd.DataFrame(data= vehicles, columns= cols_veh)
         df_trajectories = pd.DataFrame(data= trajectories, columns= cols_traj)

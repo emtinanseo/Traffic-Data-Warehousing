@@ -2,7 +2,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.types import Integer, String, Float
 import pandas as pd
-from config import DATABASE_URI
+from config import DATABASE_URI, dir
+from pathlib import Path
+import sys
+
+sys.path.append(str(Path(__file__).parent.parent))
+from scripts.read_data import Reader
 
 
 class Database:
@@ -39,3 +44,19 @@ class Database:
         result = f'Loaded {len(table_df)} rows FROM {table_name}.'
         print(table_df.info())
         return result
+
+#------------------------------
+def csv_to_sql(data_file:str):
+    reader = Reader()
+    db = Database()
+
+    veh_df, _ = reader.data_dfs(data_file)
+    x= db.vehicle_dataframe_to_sql(veh_df)
+    print(x)
+
+#---------------------------
+
+if __name__ == "__main__":
+    data_file = dir + "/data/20181024_d1_0830_0900.csv" 
+
+    csv_to_sql(data_file)
