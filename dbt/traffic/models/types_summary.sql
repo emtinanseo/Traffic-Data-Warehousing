@@ -1,4 +1,4 @@
-WITH vehicle_summary AS (
+WITH type_summary AS (
     SELECT
         type,
         COUNT(track_id) AS count,
@@ -8,4 +8,4 @@ WITH vehicle_summary AS (
     GROUP BY type
 )
 
-SELECT * FROM vehicle_summary
+SELECT * FROM type_summary
