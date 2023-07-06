@@ -1,4 +1,4 @@
-WITH type_summary AS (
+WITH types_summary AS (
     SELECT
         type,
         COUNT(track_id) AS count,
@@ -8,4 +8,4 @@ WITH type_summary AS (
     GROUP BY type
 )
 
-SELECT * FROM type_summary
+SELECT * FROM types_summary
