@@ -1,0 +1,27 @@
+version: 2
+models:
+ - name: types_summary
+   columns:
+     - name: type
+       tests:
+         - unique
+         - not_null
+         - accepted_values:
+             values: ['Car', 'Taxi', 'Bus', 'Medium Vehicle', 'Heavy Vehicle', 'Motorcycle']
+
+ - name: trajectory_summary
+   columns:
+     - name: track_id
+       tests:
+         - unique
+         - not_null
+
+ - name: full_summary
+   columns:
+     - name: track_id
+       tests:
+         - unique
+         - not_null
+         - relationships:
+             to: ref('trajectory_summary')
+             field: track_id
