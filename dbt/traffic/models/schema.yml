@@ -1,0 +1,32 @@
+version: 2
+models:
+ - name: types_summary
+   description: Number of vehicles, average speed and distance for each type of vehicle.
+   columns:
+     - name: type
+       tests:
+         - unique
+         - not_null
+         - accepted_values:
+             values: ['Car', 'Taxi', 'Bus', 'Medium Vehicle', 'Heavy Vehicle', 'Motorcycle']
+
+ - name: trajectory_summary
+   description: One line for each trajectory, total time, max accelaration and max speed during travel. 
+   columns:
+     - name: track_id
+       description: Primary key
+       tests:
+         - unique
+         - not_null
+
+ - name: full_summary
+   description: One line for each vehicle, its type and its trajectory summary.
+   columns:
+     - name: track_id
+       description: Primary key
+       tests:
+         - unique
+         - not_null
+         - relationships:
+             to: ref('trajectory_summary')
+             field: track_id
