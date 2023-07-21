@@ -25,16 +25,16 @@ def preprocess_load_data():
         reader = Reader()
         vehicles, trajectories = reader.data_dfs(data_file)
 
-        return vehicles, trajectories
+        return {"vehicles": vehicles," trajectories": trajectories}
     
-    @task
-    def load_data(vehicles, trajectories):
+    @task()
+    def load_data(df):
         db = Database()
-        db.vehicle_dataframe_to_sql(vehicles)
-        db.trajectory_dataframe_to_sql(trajectories)
+        db.vehicle_dataframe_to_sql(df["vehicles"])
+        db.trajectory_dataframe_to_sql(df["trajectories"])
 
    
-    vehicles, trajectories = preprocess_data()
-    load_data(vehicles, trajectories)
+    df = preprocess_data()
+    load_data(df)
 
 preprocess_load_data()
