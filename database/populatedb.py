@@ -2,9 +2,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.types import Integer, String, Float
 import pandas as pd
-from config import DATABASE_URI, dir
 from pathlib import Path
 import sys
+
+sys.path.append(str(Path(__file__).parent))
+from config import DATABASE_URI, dir
 
 sys.path.append(str(Path(__file__).parent.parent))
 from scripts.read_data import Reader
