@@ -2,11 +2,12 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from datetime import datetime
 from datetime import timedelta
+import config
 
-env_path = "/home/emtinanseo/Projects/10academy-week5/envw5"
-dbt_path = "/home/emtinanseo/Projects/10academy-week5/envw5/bin/dbt"
-dbt_project_dir = "/home/emtinanseo/Projects/10academy-week5/Traffic-Data-Warehousing/dbt/traffic"
-dbt_profile_dir = "/home/emtinanseo/.dbt"
+env_path = config.env_path
+dbt_path = config.dbt_path
+dbt_project_dir = config.dbt_project_dir
+dbt_profile_dir = config.dbt_profile_dir
 
 default_args = {
     'owner': 'airflow',
