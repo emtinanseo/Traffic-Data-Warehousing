@@ -27,6 +27,8 @@ We have chosen a robust tech stack to implement the data warehouse and support t
 
 3. **Airflow**: Apache Airflow will be used to orchestrate the ELT workflows. It provides a powerful and flexible platform to schedule, monitor, and manage the data pipelines. With Airflow, we can automate the entire data processing pipeline and ensure smooth execution of tasks.
 
+<img src="/screenshots/data-pipeline.png" alt="data pipeline" width="70" height="70">
+
 ## Repository Structure
 
 The repository is structured in the following manner:
