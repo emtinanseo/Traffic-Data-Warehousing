@@ -9,7 +9,7 @@ from database.populatedb import Database
 
 @dag(
     schedule= None,
-    start_date= datetime(2023,7,20,20),
+    start_date= datetime(2023,7,20,1),
     catchup= False,
 )
 def preprocess_load_data():
@@ -21,7 +21,8 @@ def preprocess_load_data():
     """
     
     @task(multiple_outputs=True)
-    def preprocess_data(data_file:str = "data/20181024_d1_0830_0900.csv"):
+    def preprocess_data(data_file:str = "data/20181024_d1_0900_0930.csv"):
+    # def preprocess_data(data_file:str = "data/20181024_d1_0830_0900.csv"):
         reader = Reader()
         vehicles, trajectories = reader.data_dfs(data_file)
 
