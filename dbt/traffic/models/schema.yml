@@ -30,3 +30,21 @@ models:
          - relationships:
              to: ref('trajectory_summary')
              field: track_id
+
+ - name: distance_summary
+   description: Trajectories grouped by full traveled distance and type of vehicle.
+   columns:
+     - name: full_distance
+       tests:
+         - not_null
+         - relationships:
+             to: ref('full_summary')
+             field: full_distance
+     - name: type
+       tests:
+         - not_null
+         - relationships:
+             to: ref('full_summary')
+             field: type
+         - accepted_values:
+             values: ['Car', 'Taxi', 'Bus', 'Medium Vehicle', 'Heavy Vehicle', 'Motorcycle']

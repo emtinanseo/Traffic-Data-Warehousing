@@ -127,8 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#data
 /data
-database/config.py
 
 # Airflow stuff
 airflow/logs/
@@ -137,3 +138,7 @@ airflow/airflow.cfg
 airflow/unittests.cfg
 airflow/webserver_config.py
 airflow/standalone_admin_password.txt
+
+# config
+database/config.py
+dags/config.py
