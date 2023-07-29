@@ -1,34 +1,37 @@
 from airflow import DAG
 from datetime import datetime, timedelta
-# from airflow.operators.bash import BashOperator
+from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from pathlib import Path
 import sys
+import config
 
-sys.path.append(str(Path(__file__).parent.parent))
-from database.populatedb import csv_to_sql
+dir = config.dir
+env_path = config.env_path
+python_path = config.python_path
+
 
 default_args = {
-    'owner': 'emtinan',
-    'retries': 2,
-    'retry_delay': timedelta(minutes=2)
+    'owner': 'airflow',
+    'depends_on_past': False,
+    'email': ['emtinan.s.e.osman@gmail.com'],
+    'email_on_failure': True,
+    'email_on_retry': False,
+    'retries': 1,
+    'retry_delay': timedelta(minutes=2),
 }
 
 with DAG(
-    dag_id ='first_dagD1',
+    dag_id ='load_data_dag',
     default_args= default_args,
-    description = "our first dag",
-    start_date = datetime(2022,10,4,10),
-    schedule_interval = '@daily'
+    description = "Dag to load data from csv files to database",
+    start_date = datetime(2023,7,22,2),
+    schedule_interval = None,
+    # schedule_interval = timedelta(minutes=10),
+    catchup = False,
 ) as dag:
-#A task bash operator = runs bash command, python operator = runs python code
-    task1 = PythonOperator(
-        task_id = 'load_vehicle_data',
-        python_callable = populate_trajectory_table
+    run_dbt = BashOperator(
+        task_id= "load_data_into_db",
+        bash_command= f"source {env_path}/bin/activate && cd {dir}/database && python3 populatedb.py &> load.log ",
+        # env= dict(PATH=python_path),
     )
-    task1
-
-# how to share data between multiple tasks: output of one task -> input of another task
-# python operators, python functions parameter of one task comes from output of another task
-# output of tasks is recorded (where?)
-# airflow done scom push , scom pull
