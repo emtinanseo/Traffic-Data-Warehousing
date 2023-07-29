@@ -23,7 +23,7 @@ class Database:
         veh_df.to_sql(
             table_name,
             self.engine,
-            if_exists='replace',
+            if_exists='append',
             index=False,
             chunksize=500,
             dtype={
@@ -42,7 +42,7 @@ class Database:
         traj_df.to_sql(
             table_name,
             self.engine,
-            if_exists='replace',
+            if_exists='append',
             index=False,
             chunksize=500,
             dtype={
@@ -72,8 +72,7 @@ class Database:
         return result
 
 #------------------------------
-data_file = dir + "/data/20181024_d1_0830_0900.csv" 
-def csv_to_sql(data_file:str = data_file):
+def csv_to_sql(data_file:str):
     reader = Reader()
     db = Database()
 
@@ -85,6 +84,6 @@ def csv_to_sql(data_file:str = data_file):
 #---------------------------
 
 if __name__ == "__main__":
-    data_file = dir + "/data/20181024_d1_0830_0900.csv" 
+    data_file = dir + "/data/20181024_d1_0900_0930.csv" 
 
     csv_to_sql(data_file)
