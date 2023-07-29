@@ -4,6 +4,7 @@ from datetime import datetime
 from datetime import timedelta
 import config
 
+dir = config.dir
 env_path = config.env_path
 dbt_path = config.dbt_path
 dbt_project_dir = config.dbt_project_dir
@@ -30,21 +31,31 @@ with DAG(
 ) as dag:
     
     run_dbt = BashOperator(
-        task_id= "run_dbt",
-        bash_command= f"source {env_path}/bin/activate && dbt run --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir}",
-        # env= dict(PATH=dbt_path),
+        task_id = "run_dbt",
+        bash_command = f'''
+        cd {dir} &&\
+             source {env_path}/bin/activate &&\
+                 dbt run --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir} &> logs/dbt_run.log
+                 ''',
     )
+    
 
     test_dbt = BashOperator(
         task_id= "test_dbt",
-        bash_command= f"source {env_path}/bin/activate && dbt test --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir} --store-failures",
-        # env= dict(PATH=dbt_path),
+        bash_command = f'''
+        cd {dir} &&\
+             source {env_path}/bin/activate &&\
+                 dbt test --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir} --store-failures &> logs/dbt_test.log
+                 ''',
     )
 
     gen_docs_dbt = BashOperator(
         task_id= "gen_docs_dbt",
-        bash_command= f"source {env_path}/bin/activate && dbt docs generate --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir}",
-        # env= dict(PATH=dbt_path),
+        bash_command = f'''
+        cd {dir} &&\
+             source {env_path}/bin/activate &&\
+                 dbt docs generate --project-dir {dbt_project_dir} --profiles-dir {dbt_profile_dir} &> logs/dbt_docs.log
+                 ''',
     )
 
     run_dbt >> test_dbt >> gen_docs_dbt
