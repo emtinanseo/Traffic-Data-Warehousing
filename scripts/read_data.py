@@ -21,7 +21,7 @@ class Reader:
 
         return values
 
-    def read_data(self, data_file: str, sep: str=';', n_veh: int=4, n_traj: int=6):
+    def read_data(self, data_file: str, sep: str=';', n_veh: int=4, n_traj: int=6, trunc: int= 20):
         """
         a function that reads a csv file and extract:
         - columns : names of columns
@@ -34,6 +34,9 @@ class Reader:
 
         with open(data_file, 'r') as file:
             lines = file.readlines()
+
+            # As a test, we will consider only 20 lines from the file
+            lines= lines[:trunc]
 
             # first line contains columns names
             columns = self.line_to_values(lines[0], sep=sep)
