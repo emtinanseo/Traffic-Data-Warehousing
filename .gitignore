@@ -142,3 +142,4 @@ airflow/standalone_admin_password.txt
 # config
 database/config.py
 dags/config.py
+redash/redash.env
