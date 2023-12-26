@@ -4,7 +4,7 @@ x-redash-service: &redash-service
   depends_on:
     - postgres
     - redis
-  env_file: ./.env
+  env_file: ./redash.env
   restart: always
 services:
   server:
@@ -37,12 +37,10 @@ services:
     restart: always
   postgres:
     image: postgres:9.6-alpine
-    env_file: ./.env
+    env_file: ./redash.env
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     restart: always
-    environment:
-      POSTGRES_HOST_AUTH_METHOD: trust 
     # ports:
     #   - "5433:5432"
     # extra_hosts:
@@ -50,7 +48,7 @@ services:
   nginx:
     image: redash/nginx:latest
     ports:
-      - "80:80"
+      - "3500:80"
     depends_on:
       - server
     links:
